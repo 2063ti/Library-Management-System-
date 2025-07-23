@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+tortoise-orm
+python-dotenv
+
+
+# http://127.0.0.1:8000
