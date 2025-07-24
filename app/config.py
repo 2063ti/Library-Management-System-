@@ -1,14 +1,3 @@
-# TORTOISE_ORM = {
-#     "connections": {
-#         "default": 'postgresql://neondb_owner:npg_3cMKgkzbvs0T@ep-wild-feather-a1mf903w-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
-#     },
-#     "apps": {
-#         "models": {
-#             "models": ["app.models"],  # Where your Tortoise models are
-#             "default_connection": "default",
-#         }
-#     }
-# }
 
 
 from tortoise import Tortoise
