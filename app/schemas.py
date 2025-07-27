@@ -1,6 +1,6 @@
 from typing import List, Optional
 from datetime import date
-from pydantic import BaseModel,EmailStr
+from pydantic import BaseModel,EmailStr, Field
 from datetime import datetime
 from app.enums import StaffRole
 # --- Author ---
@@ -50,6 +50,11 @@ class MemberOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+class MemberLoginSchema(BaseModel):
+    email: EmailStr
+    password: str 
+
 
 class MemberUpdate(BaseModel):
     name: Optional[str] = None

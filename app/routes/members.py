@@ -1,48 +1,33 @@
-# from fastapi import APIRouter, HTTPException
-# from app.models import models
-# from app import schemas
-# from app.utils import auth
-# from typing import List
+from fastapi import APIRouter
+from typing import List
+from app.schemas import MemberCreate,MemberOut,MemberUpdate,MemberLoginSchema
+from app.crud import member as member_crud
 
-# router = APIRouter(
-#     prefix="/members",
-#     tags=["members"]
-# )
+router = APIRouter()
 
-# # Create/Register a new member
-# @router.post("/", response_model=schemas.MemberRead)
-# async def register_member(member: schemas.MemberCreate):
-#     hashed = auth.hash_password(member.password)
-#     obj = await models.Member.create(
-#         name=member.name,
-#         email=member.email,
-#         password_hash=hashed,
-#         phone=member.phone,
-#         address=member.address,
-#         membership_date=member.membership_date
-#     )
-#     return await schemas.MemberRead.from_tortoise_orm(obj)
+@router.post("/", response_model=MemberOut)
+async def create_member(data: MemberCreate):
+    print("Creating member with data:", data)
+    return await member_crud.create_member(data)
 
-# # List all members
-# @router.get("/", response_model=List[schemas.MemberRead])
-# async def list_members():
-#     return await schemas.MemberRead.from_queryset(models.Member.all())
 
-# # Get single member
-# @router.get("/{id}", response_model=schemas.MemberRead, responses={404: {"model": HTTPException}})
-# async def get_member(id: int):
-#     return await schemas.MemberRead.from_queryset_single(models.Member.get(id=id))
+@router.post("/login/")
+async def login_member(data: MemberLoginSchema):
+    print("Logging in member with data:", data)
+    return await member_crud.login_member(data)
 
-# # Update member
-# @router.put("/{id}", response_model=schemas.MemberRead)
-# async def update_member(id: int, member: schemas.MemberBase):
-#     await models.Member.filter(id=id).update(**member.dict())
-#     return await schemas.MemberRead.from_queryset_single(models.Member.get(id=id))
+@router.get("/",response_model=List[MemberOut])
+async def get_members():
+    return await member_crud.get_all_members()
 
-# # Delete member
-# @router.delete("/{id}")
-# async def delete_member(id: int):
-#     deleted_count = await models.Member.filter(id=id).delete()
-#     if not deleted_count:
-#         raise HTTPException(status_code=404, detail="Member not found")
-#     return {"deleted": True}
+@router.get("/{member_id}",response_model=MemberOut)
+async def get_member(member_id: int):
+    return await member_crud.get_member_by_id(member_id)
+
+@router.put("/{member_id}",response_model=MemberOut)
+async def update_member(member_id:int,data:MemberUpdate):
+    return await member_crud.update_member(member_id, data)
+
+@router.delete("/{member_id}", response_model=MemberOut)
+async def delete_member(member_id: int):
+    return await member_crud.delete_member(member_id)
