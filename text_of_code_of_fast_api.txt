@@ -1,0 +1,51 @@
+from pydentic import BaseModel
+
+app= FastAPI()
+
+class Item(BaseModel):
+    name:str
+    price:float
+    is_offer:bool=False
+    password:str
+
+class ItemResponse(BaseModel):
+    name:str
+    price:int 
+    is_offer:bool=False
+
+
+@app.post("/items/",response_model=ItemResponse)
+def create_item(item:Item):
+    return item
+
+#how to connect Sqllite DB to FastAPI
+pip install sqlmodel
+from sqlmodel impport SQLModel,Field
+from typing import Optional
+from contextlib import asynccontextmanager
+class Item(SQlModel,table=True):
+    id:Optional[int]=Field(default=None,primary_key=True)
+    name:str
+    price:float
+    is_offer:bool=False
+
+from sqlmodel import create_engine,Session
+
+sqllite_file_name="database.db"
+sqlite_url=f"sqllite:///{sqllite_file_name}"
+
+engine = create_engine(sqlite_url,echo=True)
+
+def create_db_tables():
+    SQLModel.metadata.create_all(engine)
+
+app= FastAPI(lifespan=lifespan)
+
+@asynccontextmanager
+async def lifespan(app:FastAPI):
+    create_db_tables()
+    yield
+
+
+pip install psycopg2-binary
+

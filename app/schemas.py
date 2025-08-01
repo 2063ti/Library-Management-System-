@@ -67,16 +67,23 @@ class MemberUpdate(BaseModel):
 # --- Staff ---
 class StaffBase(BaseModel):
     name: str
-    email: str
+    email: EmailStr
+    phone: Optional[str] = None
+    address: Optional[str] = None
     role: Optional[StaffRole]
 
 class StaffCreate(StaffBase):
-    pass
+    password: str
 
 class StaffRead(StaffBase):
     id: int
+    joined_on: datetime
     class Config:
         from_attributes = True
+
+class StaffLoginSchema(BaseModel):
+    email: EmailStr
+    password: str
 
 # --- Loan ---
 class LoanBase(BaseModel):

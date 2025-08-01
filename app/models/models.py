@@ -46,6 +46,9 @@ class Staff(models.Model):
     email = fields.CharField(max_length=255, unique=True)
     password_hash= fields.CharField(max_length=255)  # Store hashed passwords
     role = fields.CharField(max_length=50, default=StaffRole.LIBRARIAN.value)
+    phone = fields.CharField(max_length=20, null=True)
+    address = fields.TextField(null=True)
+    joined_on = fields.DatetimeField(auto_now_add=True)
 
     loans: fields.ReverseRelation["Loan"]
 
