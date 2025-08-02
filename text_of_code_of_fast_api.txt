@@ -49,3 +49,13 @@ async def lifespan(app:FastAPI):
 
 pip install psycopg2-binary
 
+Initialize Aerich:
+aerich init -t app.config.TORTOISE_ORM
+
+
+Create Initial Migration:
+aerich init-db
+
+
+aerich migrate
+aerich upgrade

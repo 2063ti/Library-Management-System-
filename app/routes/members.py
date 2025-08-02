@@ -22,12 +22,13 @@ async def get_members():
 
 @router.get("/{member_id}",response_model=MemberOut)
 async def get_member(member_id: int):
+    print("Fetching member with ID:", member_id)
     return await member_crud.get_member_by_id(member_id)
 
 @router.put("/{member_id}",response_model=MemberOut)
 async def update_member(member_id:int,data:MemberUpdate):
     return await member_crud.update_member(member_id, data)
 
-@router.delete("/{member_id}", response_model=MemberOut)
+@router.delete("/{member_id}", response_model=dict)
 async def delete_member(member_id: int):
     return await member_crud.delete_member(member_id)

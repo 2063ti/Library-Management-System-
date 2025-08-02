@@ -1,5 +1,5 @@
 from app.models.models import Staff
-from app.schemas import StaffCreate, StaffUpdate, StaffLoginSchema
+from app.schemas import StaffCreate,  StaffLoginSchema
 from app.utils.security_auth import hash_password,verify_password
 from fastapi import HTTPException, status
 
@@ -33,3 +33,19 @@ async def login_staff(data: StaffLoginSchema):
         "email": staff.email,
         "name": staff.name
     }
+
+
+async def get_staff_by_id(staff_id: int):
+    staff = await Staff.get_or_none(id=staff_id)
+    if not staff:
+        raise HTTPException(status_code=404, detail="Staff not found")
+    return staff
+
+async def delete_staff(staff_id: int):
+    staff = Staff.get_or_none(id=staff_id)
+    if not staff:
+        raise HTTPException(status_code=404, detail="Staff not found")
+    
+    await staff.delete()
+
+    return {"message": "Staff deleted successfully"}

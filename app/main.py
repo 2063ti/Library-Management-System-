@@ -50,4 +50,4 @@ async def startup_event():
 app.include_router(author.router, prefix="/author", tags=["author"])
 app.include_router(book.router, prefix="/book", tags=["book"])
 app.include_router(members.router, prefix="/member", tags=["member"])
-app.include_router(members.router, prefix="/staff", tags=["staff"])
+app.include_router(staff.router, prefix="/staff", tags=["staff"])

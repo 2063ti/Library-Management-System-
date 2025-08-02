@@ -70,10 +70,23 @@ class StaffBase(BaseModel):
     email: EmailStr
     phone: Optional[str] = None
     address: Optional[str] = None
-    role: Optional[StaffRole]
+    role: StaffRole
 
 class StaffCreate(StaffBase):
     password: str
+
+
+class StaffOutSchema(BaseModel):
+    id: int
+    name: str
+    email: EmailStr
+    phone: Optional[str]
+    address: Optional[str]
+    role: StaffRole
+
+    class Config:
+        from_attributes = True
+        use_enum_values = True
 
 class StaffRead(StaffBase):
     id: int
