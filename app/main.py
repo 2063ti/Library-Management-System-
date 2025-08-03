@@ -36,6 +36,7 @@ from app.routes import author
 from app.routes import book
 from app.routes import members
 from app.routes import staff
+from app.routes import loans
 
 app = FastAPI(title="Library Management System")
 
@@ -51,3 +52,4 @@ app.include_router(author.router, prefix="/author", tags=["author"])
 app.include_router(book.router, prefix="/book", tags=["book"])
 app.include_router(members.router, prefix="/member", tags=["member"])
 app.include_router(staff.router, prefix="/staff", tags=["staff"])
+app.include_router(loans.router, prefix="/loan", tags=["loan"])

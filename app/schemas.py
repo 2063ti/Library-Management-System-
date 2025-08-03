@@ -70,7 +70,7 @@ class StaffBase(BaseModel):
     email: EmailStr
     phone: Optional[str] = None
     address: Optional[str] = None
-    role: StaffRole
+    role: Optional[StaffRole] = StaffRole.LIBRARIAN  
 
 class StaffCreate(StaffBase):
     password: str
@@ -103,9 +103,8 @@ class LoanBase(BaseModel):
     book_id: int
     member_id: int
     staff_id: int
-    loan_date: date
-    due_date: date
-    return_date: Optional[date] = None
+    due_date: datetime
+    return_date: Optional[datetime] = None
     returned: bool = False
 
 class LoanCreate(LoanBase):
@@ -115,3 +114,18 @@ class LoanRead(LoanBase):
     id: int
     class Config:
         from_attributes = True
+
+class LoanOut(BaseModel):
+    id: int
+    book_id: int
+    member_id: int
+    staff_id: int
+    loan_date: datetime
+    due_date: datetime
+    return_date: Optional[datetime]
+  
+    class Config:
+        from_attributes = True
+
+class LoanReturnSchema(BaseModel):
+    return_date: date

@@ -59,3 +59,37 @@ aerich init-db
 
 aerich migrate
 aerich upgrade
+
+
+
+{
+  "name": "J.K. Rowling",
+  "bio": "British author, known for the Harry Potter series.",
+}
+
+
+{
+  "title": "Harry Potter and the Philosopher's Stone",
+  "description": "A young wizard's journey begins.",
+  "published_date": "1997-06-26",
+  "isbn": "9780747532699",
+  "author_id": 1,  // 👈 Make sure this matches created author ID
+  "copies_available": 10
+}
+
+
+{
+  "name": "Alice Smith",
+  "email": "alice@example.com",
+  "phone": "1234567890",
+  "address": "123 Elm Street"
+}
+
+
+{
+  "name": "Mr. John Doe",
+  "email": "john.doe@example.com",
+  "phone": "9876543210",
+  "address": "456 Oak Avenue",
+  "role": "admin"   // Options: librarian (default), admin, assistant
+}
